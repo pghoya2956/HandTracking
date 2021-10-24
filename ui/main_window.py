@@ -35,10 +35,10 @@ class MainWindow(QWidget, form_class):
         direction_of_hand = data['direction_of_hand']
         num_of_stretch_out_fingers = data['num_of_stretch_out_fingers']
 
-        self.show_textBrowser(num_of_detected_hands + "\t" + is_clicked + "\t" + direction_of_hand + "\t" + num_of_stretch_out_fingers)
+        self.show_textBrowser(str(num_of_detected_hands) + "\t" + str(is_clicked) + "\t" + str(direction_of_hand) + "\t" + str(num_of_stretch_out_fingers))
 
     def show_textBrowser(self, data):
-        self.tb.data.append(data)
+        self.tb_data.append(data)
 
     def closeEvent(self, event):
         self.deleteLater()

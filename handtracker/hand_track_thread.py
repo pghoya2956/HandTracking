@@ -69,8 +69,8 @@ class HandTrackThread(QThread):
 
             # If the same operation is maintained for 1 second after initialization, a signal is sent.
             if is_send and prev_data == data and is_valid:
-                print(data)
                 if current_time - prev_time >= 1:
+                    print(data)
                     self.send_message_about_hand_tracking.emit(data)
                     is_send = False
                 continue

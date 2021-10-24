@@ -50,14 +50,12 @@ class HandTrack:
         return knuckle_points
 
     # return : num_of_detected_hands
-    @classmethod
-    def get_detected_hands_count(cls, multi_hand_landmarks) -> int:
+    def get_detected_hands_count(self, multi_hand_landmarks) -> int:
         return 0 if multi_hand_landmarks is None else len(multi_hand_landmarks)
 
     # return: stretch_out_fingers([thumb, first, second, third, fourth])
-    @classmethod
-    def get_stretch_fingers(cls, knuckle_points) -> List[bool]:
-        stretch_fingers: List[bool] = cls.__calculate_stretch_out_fingers(knuckle_points)
+    def get_stretch_fingers(self, knuckle_points) -> List[bool]:
+        stretch_fingers: List[bool] = self.__calculate_stretch_out_fingers(knuckle_points)
         return stretch_fingers
 
     # return: stretch_out_fingers([thumb, first, second, third, fourth])
@@ -106,21 +104,20 @@ class HandTrack:
 
         distance_thumb_to_index: float = math.hypot(thumb_tip[0] - index_finger_tip[0],
                                                     thumb_tip[1] - index_finger_tip[1])
-        distance_thumb_to_middel: float = math.hypot(thumb_tip[0] - middle_finger_tip[0],
+        distance_thumb_to_middle: float = math.hypot(thumb_tip[0] - middle_finger_tip[0],
                                                      thumb_tip[1] - middle_finger_tip[1])
 
-        if distance_thumb_to_index > 40 or distance_thumb_to_middel > 40:
+        if distance_thumb_to_index > 80 or distance_thumb_to_middle > 80:
             return False
 
         return True
 
     # return : -1(left), 1(right), 0(fail calculate)
-    @classmethod
-    def get_direction_hand(cls, knuckle_points) -> int:
-        index_finder_mcp: Tuple[int, int] = knuckle_points[cls.hands_module.HandLandmark.INDEX_FINGER_MCP]
-        index_finger_tip: Tuple[int, int] = knuckle_points[cls.hands_module.HandLandmark.INDEX_FINGER_TIP]
+    def get_direction_hand(self, knuckle_points) -> int:
+        index_finder_mcp: Tuple[int, int] = knuckle_points[self.hands_module.HandLandmark.INDEX_FINGER_MCP]
+        index_finger_tip: Tuple[int, int] = knuckle_points[self.hands_module.HandLandmark.INDEX_FINGER_TIP]
 
-        return cls.__calculate_direction(index_finder_mcp, index_finger_tip)
+        return self.__calculate_direction(index_finder_mcp, index_finger_tip)
 
     def __calculate_direction(self, first_point, second_point) -> int:
         radian = math.atan2(second_point[1] - first_point[1], first_point[0] - second_point[0])
