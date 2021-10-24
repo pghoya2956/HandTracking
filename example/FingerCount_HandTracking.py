@@ -2,7 +2,7 @@ import time
 
 import cv2
 
-import HandDetectionModule as htm
+from example import HandDetectionModule as htm
 
 # for 프레임 속도
 pTime = 0

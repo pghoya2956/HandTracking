@@ -3,7 +3,8 @@ import time
 
 import cv2
 
-import HandDetectionModule as hdm
+from example import HandDetectionModule as hdm
+
 
 def judgmentDirection(dx, dy):
     radian = math.atan2(dy, dx)
