@@ -1,7 +1,6 @@
 import functools
 import os
 
-
 from typing import List
 
 from PyQt5.QtWidgets import QWidget
@@ -22,6 +21,8 @@ class MainWindow(QWidget, form_class):
         self.hand_track_thread.send_message_about_hand_tracking.connect(self.on_recv_hand_track)
         self.hand_track_thread.start()
 
+        self.btn_clear.clicked.connect(lambda: self.tb_data.clear())
+
     @pyqtSlot(dict)
     def on_recv_hand_track(self, data: dict):
         # data = {'num_of_detected_hands': num_of_detected_hands,
@@ -35,7 +36,11 @@ class MainWindow(QWidget, form_class):
         direction_of_hand = data['direction_of_hand']
         num_of_stretch_out_fingers = data['num_of_stretch_out_fingers']
 
-        self.show_textBrowser(str(num_of_detected_hands) + "\t" + str(is_clicked) + "\t" + str(direction_of_hand) + "\t" + str(num_of_stretch_out_fingers))
+        self.show_textBrowser(
+            "num_of_detected_hands \t\t = " + str(num_of_detected_hands) + '\n' + \
+            "is_clicked \t\t\t = " + str(is_clicked) + '\n' + \
+            "direction_of_hand \t\t = " + str(direction_of_hand) + '\n' + \
+            "num_of_stretch_out_fingers \t\t = " + str(num_of_stretch_out_fingers) + '\n' + '\n')
 
     def show_textBrowser(self, data):
         self.tb_data.append(data)
